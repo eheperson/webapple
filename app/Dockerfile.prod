@@ -38,9 +38,6 @@ RUN mkdir /app
 WORKDIR /app
 RUN mkdir /app/staticfiles
 
-# create the app user
-RUN addgroup -S app && adduser -S app -G app
-
 # install dependencies
 RUN apt-get update
 RUN apt-get install netcat -y
@@ -56,12 +53,6 @@ RUN chmod +x /app/entrypoint.prod.sh
 
 # copy project
 COPY $REPO_PATH /app
-
-# chown all the files to the app user
-RUN chown -R app:app /app
-
-change to the app user
-USER app
 
 # run entrypoint.prod.sh
 ENTRYPOINT ["/app/entrypoint.prod.sh"]
